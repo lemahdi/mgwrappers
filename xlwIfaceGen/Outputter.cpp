@@ -273,7 +273,13 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     }
     else
     {
-      AddLine(output,"return XlfOper(result);");
+	  if (functionDescriptions[i].GetReturnType() == "MG_Date")
+	  {
+		  AddLine(output,"double vXLDate = MG_utils::FromJulianDayToXLDate(result.GetJulianDay());");
+		AddLine(output,"return XlfOper(vXLDate);");
+	  }
+	  else
+        AddLine(output,"return XlfOper(result);");
     }
     AddLine(    output,"EXCEL_END");
 
@@ -369,7 +375,7 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
       AddLine(output,fundamentalType+" "+argIdentifier+"(");
 
      
-      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string
+      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string, MG_Date
 
       if (fundamentalType == "double")
       {
@@ -406,7 +412,12 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
                     AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
                   }
                   else
-                    throw("unknown type found: "+fundamentalType);
+                    if (fundamentalType == "MG_Date" )
+                    {
+                      AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
+                    }
+					else
+                      throw("unknown type found: "+fundamentalType);
 
 
 

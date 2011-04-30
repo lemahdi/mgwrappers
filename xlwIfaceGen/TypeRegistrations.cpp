@@ -179,4 +179,13 @@ TypeRegistry::Helper payoffreg("Wrapper<PayOff>", // New type
               "<xlw/ArgListFactory.h>" // Include file
                );
 
+TypeRegistry::Helper datesregreg("MG_Date", // New type
+               "XlfOper",       // Old type
+               "AsMGDate",  // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER",       // Type code
+			   "<mgnova/utils/utils.h>"
+               );
+
 }
