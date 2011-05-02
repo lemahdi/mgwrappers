@@ -130,7 +130,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 
     AddLine(output,"  XLRegistration::XLFunctionRegistrationHelper"); 
     AddLine(output,"register"+name+"(\"xl"+name+"\",");
-    AddLine(output,"\""+name+"\",");
+    AddLine(output,"\"MG_"+name+"\",");
     AddLine(output,"\""+ functionDescriptions[i].GetFunctionDescription()+" \",");
     AddLine(output, "LibraryName,");
     AddLine(output,name+"Args,");
@@ -264,7 +264,22 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     if (functionDescriptions[i].DoTime())
     {
       AddLine(output,"  t = (clock()+0.0)/CLOCKS_PER_SEC-t;");
-      AddLine(output,"CellMatrix resultCells(result);");
+      AddLine(output,"CellMatrix resultCells;");
+	  if (functionDescriptions[i].GetReturnType() == "MG_Date")
+	  {
+		AddLine(output,"double vXLDate = MG_utils::FromJulianDayToXLDate(result.GetJulianDay());");
+	    AddLine(output,"resultCells = CellMatrix(vXLDate);");
+	  }
+	  else if (functionDescriptions[i].GetReturnType() == "MG_XLObjectPtr")
+	  {
+		AddLine(output,"string vRefObj, vError;");
+		AddLine(output,"if (MG_SCache::Instance()->PersistentInsert(result, vRefObj, vError))");
+		AddLine(output,"  resultCells = CellMatrix(vRefObj);");
+		AddLine(output,"else");
+		AddLine(output,"  resultCells = CellMatrix(vError);");
+	  }
+	  else
+	    AddLine(output,"resultCells = CellMatrix(result);");
       AddLine(output,"CellMatrix time(1,2);");
       AddLine(output,"time(0,0) = \"time taken\";");
       AddLine(output,"time(0,1) = t;");
@@ -275,8 +290,16 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     {
 	  if (functionDescriptions[i].GetReturnType() == "MG_Date")
 	  {
-		  AddLine(output,"double vXLDate = MG_utils::FromJulianDayToXLDate(result.GetJulianDay());");
+		AddLine(output,"double vXLDate = MG_utils::FromJulianDayToXLDate(result.GetJulianDay());");
 		AddLine(output,"return XlfOper(vXLDate);");
+	  }
+	  else if (functionDescriptions[i].GetReturnType() == "MG_XLObjectPtr")
+	  {
+		AddLine(output,"string vRefObj, vError;");
+		AddLine(output,"if (MG_SCache::Instance()->PersistentInsert(result, vRefObj, vError))");
+		AddLine(output,"  return XlfOper(vRefObj);");
+		AddLine(output,"else");
+		AddLine(output,"  return XlfOper(vError);");
 	  }
 	  else
         AddLine(output,"return XlfOper(result);");
@@ -375,7 +398,7 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
       AddLine(output,fundamentalType+" "+argIdentifier+"(");
 
      
-      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string, MG_Date
+      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string, MG_Date, MG_XLObjectPtr
 
       if (fundamentalType == "double")
       {
@@ -417,7 +440,12 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
                       AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
                     }
 					else
-                      throw("unknown type found: "+fundamentalType);
+                      if (fundamentalType == "MG_XLObjectPtr" )
+                      {
+                        AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
+                      }
+					  else
+                        throw("unknown type found: "+fundamentalType);
 
 
 
