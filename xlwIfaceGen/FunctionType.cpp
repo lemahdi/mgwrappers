@@ -72,7 +72,7 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
             FunctionArgumentType typeDesc(thisType,thisConversionString,thisKey);
 
 
-            FunctionArgument thisArgument(typeDesc,it->GetArgumentFunctionName(i),it->GetArgumentFunctionDescription(i));
+            FunctionArgument thisArgument(typeDesc,it->GetArgumentFunctionName(i),it->GetArgumentFunctionDescription(i), it->GetArgumentFunctionDefaultvalue(i));
             Arguments.push_back(thisArgument);
         }
 

@@ -43,16 +43,19 @@ class FunctionArgument
 public: 
      FunctionArgument(const FunctionArgumentType& TheType_,
                         std::string ArgumentName_,
-                        std::string ArgumentDescription_);
+                        std::string ArgumentDescription_,
+						std::string ArgumentDefaultvalue_);
         
      FunctionArgumentType GetTheType() const;
      std::string GetArgumentName() const;
      std::string GetArgumentDescription() const; 
+	 std::string GetArgumentDefaultvalue() const;
              
 private:
      FunctionArgumentType TheType;
      std::string ArgumentName;
      std::string ArgumentDescription;   
+	 std::string ArgumentDefaultvalue;
 };
 
 class FunctionDescription

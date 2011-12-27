@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     
     if (clw)
      outputVector = OutputFileCreatorCL(functionVector,  
-                                          inputfile);
+                                          inputfile);//no default value guarantee
     else
       outputVector = OutputFileCreator(functionVector,  
                                           inputfile,LibraryName);

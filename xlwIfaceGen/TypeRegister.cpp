@@ -27,6 +27,7 @@
 TypeRegistry::regData::regData(std::string NewType_,
                  std::string OldType_,
                  std::string Converter_,
+                 std::string ConverterWD_,
                  bool IsAMethod_,
                  bool TakesIdentifier_,
                  std::string ExcelKey_,
@@ -34,6 +35,7 @@ TypeRegistry::regData::regData(std::string NewType_,
                  :
 NewType(NewType_),OldType(OldType_),
 Converter(Converter_),
+ConverterWD(ConverterWD_),
 IsAMethod(IsAMethod_),
 TakesIdentifier(TakesIdentifier_),
 ExcelKey(ExcelKey_),
@@ -49,13 +51,14 @@ void TypeRegistry::Register(const regData& data)
 TypeRegistry::Helper::Helper(std::string NewType,
                std::string OldType,
                std::string ConversionCommand,
+               std::string ConversionCommandWD,
                bool IsAMethod,
                bool TakesAnIdentifier,
                std::string ExcelKey,
                std::string IncludeFile)
                : NewType_(NewType)
 {
-    regData data(NewType,OldType,ConversionCommand,
+    regData data(NewType,OldType,ConversionCommand,ConversionCommandWD,
                                                     IsAMethod,TakesAnIdentifier,
                                                     ExcelKey, IncludeFile);
 
@@ -72,8 +75,8 @@ bool TypeRegistry::IsOfBaseType(const std::string & id) const
     if (id =="XLWSTR")
         return true;
 
-    if (id == "double")
-        return true;
+    /*if (id == "double")
+        return true;*/
 
     if (id == "LPXLARRAY")
         return true;

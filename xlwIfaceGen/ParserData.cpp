@@ -60,13 +60,20 @@ std::string FunctionArgument::GetArgumentDescription() const
  return ArgumentDescription;            
 }
 
+std::string FunctionArgument::GetArgumentDefaultvalue() const
+{
+ return ArgumentDefaultvalue;            
+}
+
 FunctionArgument::FunctionArgument(const FunctionArgumentType& TheType_,
                         std::string ArgumentName_,
-                        std::string ArgumentDescription_)
+                        std::string ArgumentDescription_,
+						std::string ArgumentDefaultvalue_)
                         :
                         TheType(TheType_),
                         ArgumentName(ArgumentName_),
-                        ArgumentDescription(ArgumentDescription_)
+                        ArgumentDescription(ArgumentDescription_),
+						ArgumentDefaultvalue(ArgumentDefaultvalue_)
 {
 }
 

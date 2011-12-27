@@ -134,6 +134,21 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
         if (it == end)
             throw("function half declared at end of file "+functionName);
 
+		// default values
+		std::string argDefaultvalue = "";
+		if (it->GetValue() == "=")
+		{
+			++it;
+			if (it->GetType() != Token::identifier)
+				throw("default value expected in arg list "+functionName);
+
+			argDefaultvalue = it->GetValue();
+			
+			++it;
+			if (it == end)
+				throw("function half declared at end of file "+functionName);
+		}
+
         std::string argComment("too lazy to comment this one");
 
         if (it->GetType() == Token::comment)
@@ -146,7 +161,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 
         // ok got this argument's data
 
-        theFunction.AddArgument(argType,argName,argComment);
+        theFunction.AddArgument(argType,argName,argComment, argDefaultvalue);
 
         if (it->GetType() == Token::comma)
         {

@@ -225,7 +225,13 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 
 
         if (isMethod)
-          AddLine(output, "\t"+lastId+"."+argData.Converter+"("+identifierBit+"));");
+		{
+		  std::string defaultValue = functionDescriptions[i].GetArgument(j).GetArgumentDefaultvalue();
+		  if (argData.ConverterWD!="" && defaultValue!="")
+			AddLine(output, "\t"+lastId+"."+argData.ConverterWD+"("+identifierBit+","+defaultValue+"));");
+		  else
+            AddLine(output, "\t"+lastId+"."+argData.Converter+"("+identifierBit+"));");
+		}
         else 
           AddLine(output, "\t"+argData.Converter+"("+lastId+identifierBit+"));");
 

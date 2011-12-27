@@ -27,7 +27,7 @@ public:
 
     FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false, bool Time_=false, bool Threadsafe_=false);
 
-    void AddArgument(std::string Type_, std::string Name_, std::string Description_);
+	void AddArgument(std::string Type_, std::string Name_, std::string Description_, std::string Defaultvalues_);
 
     size_t GetNumberArgs() const;
 
@@ -57,6 +57,10 @@ public:
     std::string GetArgumentFunctionDescription(int i) const
     {
         return ArgumentDescs.at(i);
+    }
+    std::string GetArgumentFunctionDefaultvalue(int i) const
+    {
+        return ArgumentDefvals.at(i);
     }
 
     bool GetVolatile() const
@@ -90,6 +94,7 @@ private:
     std::vector<std::string > ArgumentTypes;
     std::vector<std::string > ArgumentNames;
     std::vector<std::string > ArgumentDescs;
+    std::vector<std::string > ArgumentDefvals;
 
 };
 

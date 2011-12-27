@@ -27,11 +27,12 @@ FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::str
 {
 }
 
-void FunctionModel::AddArgument(std::string Type_, std::string Name_, std::string Description_)
+void FunctionModel::AddArgument(std::string Type_, std::string Name_, std::string Description_, std::string Defaultvalues_)
 {
     ArgumentTypes.push_back(Type_);
     ArgumentNames.push_back(Name_);
     ArgumentDescs.push_back(Description_);
+	ArgumentDefvals.push_back(Defaultvalues_);
 }
 
 size_t FunctionModel::GetNumberArgs() const

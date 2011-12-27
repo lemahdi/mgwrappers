@@ -36,6 +36,7 @@ public:
         regData(std::string NewType,
                         std::string OldType,
                         std::string Converter,
+                        std::string ConverterWD,
                         bool IsAMethod,
                         bool TakesIdentifier,
                         std::string ExcelKey,
@@ -44,6 +45,7 @@ public:
         std::string NewType;
         std::string OldType;
         std::string Converter;
+		std::string ConverterWD;
         bool IsAMethod;
         bool TakesIdentifier;
         std::string ExcelKey;
@@ -72,6 +74,7 @@ public:
         Helper(std::string NewType,
                std::string OldType,
                std::string ConversionCommand,
+               std::string ConversionCommandWD,
                bool IsAMethod,
                bool TakesAnIdentifier,
                std::string ExcelKey ="",
