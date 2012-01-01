@@ -106,7 +106,11 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     {
       //PushBack(keys,functionDescriptions[i].GetArgument(j).GetTheType().GetEXCELKey());
       std::string thisLine = "{ \"";
+	  if (functionDescriptions[i].GetArgument(j).GetArgumentDefaultvalue() != "")
+		  thisLine += "[";
       thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentName();
+	  if (functionDescriptions[i].GetArgument(j).GetArgumentDefaultvalue() != "")
+		  thisLine += "]";
       thisLine+= "\",\"";
       thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentDescription();
       thisLine+= " \",\"";
