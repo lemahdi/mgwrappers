@@ -408,7 +408,7 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
       AddLine(output,fundamentalType+" "+argIdentifier+"(");
 
      
-      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string, MG_Date, MG_XLObjectPtr
+      //double, NEMatrix, short, MyArray, MyMatrix, CellMatrix, string, std::string, MG_Date, MG_GenericDate, MG_XLObjectPtr
 
       if (fundamentalType == "double")
       {
@@ -445,17 +445,12 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
                     AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
                   }
                   else
-                    if (fundamentalType == "MG_Date" )
+                    if (fundamentalType=="MG_Date" || fundamentalType=="MG_GenericDate" || fundamentalType=="MG_XLObjectPtr")
                     {
                       AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
                     }
 					else
-                      if (fundamentalType == "MG_XLObjectPtr" )
-                      {
-                        AddLine(output, "arguments.GetCellsArgumentValue(\""+variableName+"\"));");
-                      }
-					  else
-                        throw("unknown type found: "+fundamentalType);
+                      throw("unknown type found: "+fundamentalType);
 
 
 

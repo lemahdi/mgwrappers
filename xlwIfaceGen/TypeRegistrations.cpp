@@ -208,6 +208,16 @@ TypeRegistry::Helper datesregr("MG_Date", // New type
 			   "<mgnova/utils/utils.h>"
                );
 
+TypeRegistry::Helper gendatesregr("MG_GenericDate", // New type
+               "XlfOper",       // Old type
+               "AsMGGenDate",   // Converter name
+               "AsMGGenDateWD", // Converter name with default value
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER",      // Type code
+			   "<mgnova/utils/utils.h>"
+               );
+
 TypeRegistry::Helper xlobjreg("MG_XLObjectPtr", // New type
                "XlfOper",       // Old type
                "AsMGXLObject",  // Converter name
