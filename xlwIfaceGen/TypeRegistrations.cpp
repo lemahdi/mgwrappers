@@ -205,7 +205,7 @@ TypeRegistry::Helper datesregr("MG_Date", // New type
                true,            // Is a method
                true,            // Takes identifier
                "XLF_OPER",      // Type code
-			   "<mgnova/utils/utils.h>"
+			   "<nova/utils/utils.h>"
                );
 
 TypeRegistry::Helper gendatesregr("MG_GenericDate", // New type
@@ -215,7 +215,7 @@ TypeRegistry::Helper gendatesregr("MG_GenericDate", // New type
                true,            // Is a method
                true,            // Takes identifier
                "XLF_OPER",      // Type code
-			   "<mgnova/utils/utils.h>"
+			   "<nova/utils/utils.h>"
                );
 
 TypeRegistry::Helper xlobjreg("MG_XLObjectPtr", // New type
